@@ -1,0 +1,43 @@
+p {
+    line-height: 1rem;
+}
+
+.card {
+    padding: 20px;
+    color: whitesmoke;
+    background: url(https://c4.wallpaperflare.com/wallpaper/784/1010/450/circles-form-dark-background-wallpaper-preview.jpg);
+}
+
+.form-group input {
+    margin-bottom: 20px;
+}
+
+
+.login-page {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+}
+.wallpaper-login {
+    background: url(https://wallpaperaccess.com/full/273264.jpg)
+    no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.wallpaper-register {
+    background: url(https://wallpapercave.com/wp/wp4658679.jpg)
+    no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+}
+

@@ -1,16 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+  <NavBar v-if="isLogin"></NavBar>
+  <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import NavBar from "@/components/NavBar";
 export default {
   name: 'App',
+  data() {
+    return {
+      isLogin:true
+    }
+    },
   components: {
-    HelloWorld
+    NavBar
   }
+
 }
 </script>
 
@@ -21,6 +28,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>
