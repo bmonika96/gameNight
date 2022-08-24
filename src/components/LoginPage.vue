@@ -10,9 +10,9 @@
             <div class="card login" v-bind:class="{ error: emptyFields }">
               <h1>Sign In</h1>
               <form class="form-group">
-                <input v-model="emailLogin" type="email" class="form-control" placeholder="Email" required>
-                <input v-model="passwordLogin" type="password" class="form-control" placeholder="Password" required>
-                <input type="submit" class="btn btn-primary" @click="doLogin">
+                <input v-model="usernamelogin"  class="form-control" placeholder="Uporabniško ime" required>
+                <input v-model="passwordLogin" type="password" class="form-control" placeholder="Geslo" required>
+                <input type="submit" class="btn btn-primary" @click="handleLogin">
                 <p>Don't have an account? <a href="#" @click="registerRedirect">Sign up here</a>
                 </p>
                 <p><a href="#">Forgot your password?</a></p>
@@ -29,36 +29,75 @@
 </template>
 
 <script>
+
 import router from "@/router";
+import axios from "axios";
 
 export default {
   data() {
     return {
       registerActive: false,
-      emailLogin: "",
+      usernamelogin: "",
       passwordLogin: "",
-      emailReg: "",
-      passwordReg: "",
-      confirmReg: "",
       emptyFields: false
     }
   },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  created() {
+    if (this.loggedIn) {
+      router.push("/");
+    }
+  },
   methods: {
-      doLogin(event) {
-        if(event) {
-          if (this.emailLogin === "" || this.passwordLogin === "") {
-            this.emptyFields = true;
-          } else {
-            alert("You are now logged in");
-          }
-        }
-      },
 
     registerRedirect(event) {
         if(event) {
           router.push('/registration')
         }
+      },
+    handleLogin(e) {
+      e.preventDefault();
+      console.log("login")
+      const user = {
+        'username' : this.usernamelogin,
+        'password': this.passwordLogin
       }
-    }
+      this.loading = true;
+
+      this.$store.dispatch("auth/login", user).then(
+          () => {
+            console.log("successful")
+            router.push("/");
+          },
+          (error) => {
+            this.loading = false;
+            this.message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+          }
+
+
+      );
+
+
+    },
+  },
+
 }
 </script>
+<style>
+.login {
+  padding:20px;
+  opacity:1;
+}
+h1 {
+  color: #2c3e50;
+}
+</style>

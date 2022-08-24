@@ -10,11 +10,13 @@
   <div class="card login" v-bind:class="{ error: emptyFields }">
     <h1>Registration</h1>
     <form class="form-group">
-      <input v-model="userId" type="email" class="form-control" placeholder="Uporabniško ime" required>
+      <input v-model="userName" class="form-control" placeholder="Uporabniško ime" required>
       <input v-model="emailReg" type="email" class="form-control" placeholder="Email" required>
+      <input v-model="name" type="text" class="form-control" placeholder="Ime" required>
+      <input v-model="lastName" type="text" class="form-control" placeholder="Priimek" required>
       <input v-model="passwordReg" type="password" class="form-control" placeholder="Geslo" required>
       <input v-model="confirmReg" type="password" class="form-control" placeholder="Ponovi geslo" required>
-      <input type="submit" class="btn btn-primary" @click="doRegister">
+      <input type="submit" class="btn btn-primary" @click="handleRegister">
     </form>
   </div>
   </div>
@@ -25,42 +27,64 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: 'RegistrationPage',
   data() {
     return {
-      userId: "",
+      userName: "",
       emailReg: "",
+      name:"",
+      lastName: "",
       passwordReg: "",
       confirmReg: "",
       emptyFields: false
     }
   },
   computed: {
-    validation() {
-      return this.form.userId.length > 4 && this.form.userId.length < 13
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+  mounted() {
+    if (this.loggedIn) {
+      router.push("/");
     }
   },
   methods: {
-
-    doRegister(event) {
-      if(event) {
-        event.preventDefault()
-        alert('registracija uspešna')
-
+    handleRegister(e) {
+      e.preventDefault();
+      const user = {
+        'uporabnisko_ime': this.userName,
+        'email': this.email,
+        'geslo': this.passwordReg,
+        'ime':this.name,
+        'priimek': this.lastName
       }
+      this.message = "";
+      this.successful = false;
+      this.loading = true;
+      this.$store.dispatch("auth/register", user).then(
+          (data) => {
+            this.message = data.message;
+            this.successful = true;
+            this.loading = false;
+            router.push('/')
+          },
+          (error) => {
+            this.message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            this.successful = false;
+            this.loading = false;
+          }
+      );
     },
-    onReset(event) {
-      event.preventDefault()
-      // Reset our form values
-      this.emailLogin = ''
-      this.passwordLogin = ''
-      this.userId = ''
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
-    }
-  }
+  },
+
 }
 </script>

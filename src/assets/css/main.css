@@ -3,16 +3,31 @@ p {
 }
 
 .card {
-    padding: 20px;
     color: whitesmoke;
-    background: url(https://c4.wallpaperflare.com/wallpaper/784/1010/450/circles-form-dark-background-wallpaper-preview.jpg);
+    margin: 5px;
+    opacity: 0.9;
 }
-
+.card-igra {
+    background: url(https://img.freepik.com/premium-vector/black-texture_136321-1475.jpg);
+}
+.card-dogodek {
+    background: url(https://img.freepik.com/premium-vector/black-texture_136321-1475.jpg);
+}
+.card-predlagalnik {
+    background: url(https://wallpaper.dog/large/20395931.jpg);
+    opacity: 1;
+    width: 100%;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+}
+.card:hover{
+    opacity: 1;
+}
 .form-group input {
     margin-bottom: 20px;
 }
-
-
 .login-page {
     align-items: center;
     display: flex;
@@ -26,6 +41,9 @@ p {
     position: absolute;
     width: 100%;
 }
+.card-body {
+    padding:0;
+}
 
 .wallpaper-register {
     background: url(https://wallpapercave.com/wp/wp4658679.jpg)
@@ -37,7 +55,9 @@ p {
 
 }
 
-h1 {
-    margin-bottom: 1.5rem;
+
+.list-group {
+    width: 50%;
+    text-align: center;
 }
 
