@@ -23,6 +23,9 @@
             <li class="nav-item">
               <a class="nav-link" href="#" @click="routePushLogin">Login</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" @click="odjava">Odjava</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -57,7 +60,7 @@ export default {
     },
     routePushDomov(event){
       if(event) {
-        router.push('/domov');
+        router.push('/');
       }
     },
     routePushDogodki(event){
@@ -68,6 +71,12 @@ export default {
     routePushPredlagalnik(event){
       if(event) {
         router.push('/predlagalnik');
+      }
+    },
+    odjava(e){
+      if(e) {
+        this.$store.dispatch('auth/logout');
+        router.push('/login');
       }
     }
   }

@@ -1,10 +1,10 @@
 <template>
   <div id="home">
-    <main>
-
       <section class="header py-5 text-center container">
         <div class="row py-lg-5">
           <div class="col-lg-6 col-md-8 mx-auto">
+            <h3>Pozdravljeni {{currentUserData.username}}</h3>
+
             <h1 class="fw-light">GameNight</h1>
             <p class="lead text-muted">Imejte pregled nad vsemi družabnimi igrami in dogodki ter prepustite izbiro igre predlagalniku.</p>
             <p>
@@ -56,7 +56,7 @@
         </div>
       </div>
 
-    </main>
+
   </div>
 </template>
 
@@ -125,14 +125,18 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    currentUserData(){
+      return this.$store.state.auth.userData ? this.$store.state.auth.userData: "";
     }
   },
   mounted() {
-    /*
+
+
     if (!this.currentUser) {
       router.push('/login');
     }
-    */
+
 
   },
   methods: {
@@ -157,22 +161,21 @@ export default {
 </script>
 
 <style>
+#home {
+  width: 100%;
+}
+.header {
+  background: white;
+  margin:0px auto;
+  position: static;
+}
 .btn {
   margin: 5px;
 }
 .card {
   margin: 5px;
 }
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-.album {
-  background: url("https://img.freepik.com/premium-vector/abstract-white-grey-background_528453-7.jpg?w=2000");
-}
+
 h2 {
   padding: 10px;
 }

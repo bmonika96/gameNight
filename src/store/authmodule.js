@@ -1,7 +1,8 @@
 import AuthService from '../services/authService';
 const user = JSON.parse(localStorage.getItem('user'));
+const userData = JSON.parse(localStorage.getItem('userData'));
 const initialState = user
-    ? { status: { loggedIn: true }, user }
+    ? { status: { loggedIn: true }, user, userData }
     : { status: { loggedIn: false }, user: null };
 export const auth = {
     namespaced: true,
@@ -9,9 +10,10 @@ export const auth = {
     actions: {
         login({ commit }, user) {
             return AuthService.login(user).then(
-                user => {
-                    commit('loginSuccess', user);
-                    return Promise.resolve(user);
+                userResp => {
+
+                    commit('loginSuccess', {"response":userResp, "data": user});
+                    return Promise.resolve(userResp);
                 },
                 error => {
                     commit('loginFailure');
@@ -36,10 +38,18 @@ export const auth = {
             );
         }
     },
+    getters:{
+        getUser(state) {
+            return state.userData
+        }
+    },
     mutations: {
-        loginSuccess(state, user) {
+        loginSuccess(state, payload) {
+
             state.status.loggedIn = true;
-            state.user = user;
+            state.user = payload.response;
+            state.userData = payload.data;
+
         },
         loginFailure(state) {
             state.status.loggedIn = false;
@@ -48,6 +58,7 @@ export const auth = {
         logout(state) {
             state.status.loggedIn = false;
             state.user = null;
+            state.userData = null
         },
         registerSuccess(state) {
             state.status.loggedIn = false;

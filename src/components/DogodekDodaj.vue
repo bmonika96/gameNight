@@ -4,18 +4,15 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-          <div class="card" v-bind:class="{ error: emptyFields }">
+          <div class="card">
             <h1>Dodaj igro</h1>
             <form class="form-group">
-              <input v-model="imeIgre" class="form-control" placeholder="Ime igre" required>
-              <input v-model="ocena" class="form-control" placeholder="Ocena" required>
-              <input v-model="tezavnost" class="form-control" placeholder="Težavnost" required>
-              <input v-model="minStIgr" class="form-control" placeholder="Minimalno število igralcev" required>
-              <input v-model="maxStIgr" class="form-control" placeholder="Maximalno število igralcev" required>
-              <input v-model="dolzina" class="form-control" placeholder="Dolžina igre" required>
-              <input v-model="urlSlike" class="form-control" placeholder="URL slike" required>
-              <input type="submit" class="btn btn-primary" @click="DodajIgro">
+              <input v-model="form.ime_skupine" class="form-control" placeholder="Ime skupine" required>
+              <input v-model="form.datum" class="form-control" placeholder="Datum" required>
+              <input v-model="form.odigrana_igra" class="form-control" placeholder="Odigrana igra" required>
+              <input v-model="form.zmagovalec" class="form-control" placeholder="Zmagovalec" required>
             </form>
+            <button class="btn btn-primary" @click="dodajDogodek">DODAJ</button>
           </div>
         </div>
       </div>
@@ -25,24 +22,27 @@
 </template>
 
 <script>
-import axios from 'axios';
+
+import ApiKlici from "@/services/apiKlici";
+import router from "@/router";
 
 export default {
   name: 'DodajIgro',
   data() {
     return {
-      imeIgre: "",
-      ocena: "",
-      tezavnost: "",
-      maxStIgr: "",
-      minStIgr: "",
-      dolzina: "",
-      urlSlike: ""
-    }
+      form: {
+      ime_skupine: "",
+      datum: "",
+      odigrana_igra: "",
+      zmagovalec: "",
+    }}
   },
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    currentUserName() {
+      return this.$store.state.auth.userData.username;
     }
   },
   mounted() {
@@ -51,10 +51,27 @@ export default {
     }
   },
   methods: {
+    dodajDogodek(e){
+      if(e) {
+        console.log("dodajanje")
+        ApiKlici.postDogodek(this.currentUserName, this.form).then(
+            (response) => {
+              alert(response)
+              router.push('/dogodki')
 
-
-
-
+            },
+            (error) => {
+              console.log("error")
+              this.content =
+                  (error.response &&
+                      error.response.data &&
+                      error.response.data.message) ||
+                  error.message ||
+                  error.toString();
+            }
+        );
+      }
+    }
   }
 }
 </script>

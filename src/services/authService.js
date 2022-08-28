@@ -7,29 +7,27 @@ class AuthService {
         console.log(user.password)
         const username = user.username;
         const password = user.password;
-        const basicAuth = 'Basic ' + btoa(username + ':' + password);
         return axios.get(API_URL + 'login', {auth: {
             username: username, password: password
             }},)
             .then(response => {
                 console.log(response)
-                if (response.data.token) {
+
                     localStorage.setItem('user', JSON.stringify(response.data));
-                }
+                    localStorage.setItem('userData', JSON.stringify({
+                        username: username, password: password
+                    }));
+
                 return response.data;
             });
     }
     logout() {
-        localStorage.removeItem('user');
+        console.log("odjavljanje")
+        localStorage.removeItem('user')
+        localStorage.removeItem(('userData'))
     }
-    register(user) {
-        return axios.post(API_URL + 'registracija', {
-            uporabnisko_ime: user.uporabnisko_ime,
-            email: user.email,
-            geslo: user.geslo,
-            ime:user.ime,
-            priimek: user.priimek
-        });
+    register(userData) {
+        return axios.post(API_URL + 'registracija', userData);
     }
 }
 export default new AuthService();

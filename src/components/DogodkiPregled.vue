@@ -3,20 +3,21 @@
       <div class="album py-5 bg-light">
         <div class="container">
           <h2>Dogodki:</h2>
+          <button type="button" class="btn btn-sm btn-outline-dark" @click="dodajDogodekPage">Dodaj dogodek</button>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div v-for="item in dogodki" v-bind:key="item" class="col">
               <div class="card card-dogodek shadow-sm">
-                <h2>{{item["ime_skupine"]}}</h2>
-                <div class="card-body">
-                  <p class="card-text">{{item["datum"]}}</p>
-                  <p class="card-text">{{item["odigrana_igra"]}}</p>
-                  <p class="card-text">{{item["zmagovalec"]}}</p>
+                <h5>Skupina: {{item.ime_skupine}}</h5>
+                <div class="card-body dogodki">
+                  <p class="card-text">Datum: {{item.datum}}</p>
+                  <p class="card-text">Igra: {{item.odigrana_igra}}</p>
+                  <p class="card-text">Zmagovalec: {{item.zmagovalec}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary" @click="openDogodek(item)">View</button>
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
-                    <small class="text-muted">{{item["datum"]}}</small>
+                    <small class="text-muted">{{item.datum}}</small>
                   </div>
                 </div>
               </div>
@@ -43,15 +44,19 @@ export default {
   computed: {
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    currentUserData() {
+      return this.$store.state.auth.userData;
     }
   },
   mounted() {
     if (!this.currentUser) {
       this.router.push('/login');
     }
-    APIklici.getDogodki("admin_monika").then(
+    APIklici.getDogodki(this.currentUserData.username).then(
         (response) => {
-          this.dogodki = response.data;
+          this.dogodki = JSON.parse(response.data);
+          console.log(this.dogodki)
         },
         (error) => {
           this.content =
@@ -66,12 +71,18 @@ export default {
   },
   methods: {
     openDogodek(dogodek) {
+      console.log(dogodek)
       router.push({
         name: 'dogodek',
         params: {
-          dogodekId: dogodek["id_dogodka"]
+          dogodekId: dogodek[0]
         }
       })
+    },
+    dodajDogodekPage(e){
+      if(e){
+        router.push('/dogodki/dodaj')
+      }
     }
   }
 }
@@ -87,6 +98,11 @@ export default {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+.dogodki {
+  background: whitesmoke;
+  color: #2c3e50 ;
+  padding: 10px !important;
 }
 h2 {
   padding: 10px;

@@ -16,8 +16,8 @@
       <input v-model="lastName" type="text" class="form-control" placeholder="Priimek" required>
       <input v-model="passwordReg" type="password" class="form-control" placeholder="Geslo" required>
       <input v-model="confirmReg" type="password" class="form-control" placeholder="Ponovi geslo" required>
-      <input type="submit" class="btn btn-primary" @click="handleRegister">
     </form>
+    <button class="btn btn-primary" @click="handleRegister">Registracija</button>>
   </div>
   </div>
       </div>
@@ -53,24 +53,23 @@ export default {
     }
   },
   methods: {
-    handleRegister(e) {
-      e.preventDefault();
+    handleRegister() {
       const user = {
         'uporabnisko_ime': this.userName,
-        'email': this.email,
         'geslo': this.passwordReg,
         'ime':this.name,
-        'priimek': this.lastName
+        'priimek': this.lastName,
+        'email': this.emailReg,
       }
       this.message = "";
       this.successful = false;
-      this.loading = true;
+      console.log(user);
       this.$store.dispatch("auth/register", user).then(
           (data) => {
             this.message = data.message;
             this.successful = true;
-            this.loading = false;
-            router.push('/')
+            router.push('/login')
+
           },
           (error) => {
             this.message =
