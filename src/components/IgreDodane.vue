@@ -13,7 +13,6 @@
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-outline-light"  @click="openGame(item)">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-light">Edit</button>
                   </div>
                   <small class="text-muted">{{item.uporabnisko_ime}}</small>
                 </div>

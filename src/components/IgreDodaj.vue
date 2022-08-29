@@ -1,12 +1,12 @@
 <template>
   <div id="igra_dodaj">
 
-      <div class="container">
+      <div class="container ">
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
             <div class="card">
               <h1>Dodaj igro</h1>
-              <div class="form-group">
+              <div class="form-group dodajIgroForm">
                 <input v-model="imeIgre" class="form-control" placeholder="Ime igre" required>
                 <input v-model="ocena" class="form-control" placeholder="Ocena" required>
                 <input v-model="tezavnost" class="form-control" placeholder="Težavnost" required>
@@ -69,9 +69,13 @@ export default {
         }
         ApiKlici.postIgra(this.currentUserName, data).then(
             (response) => {
-              alert(response.data.message)
+              if(response.status == 200){
+                alert(response.data.message)
               router.push('/igre')
-
+              }
+              else {
+                   alert("Nekaj ni bilo v redu")
+              }
             },
             (error) => {
               console.log("error")

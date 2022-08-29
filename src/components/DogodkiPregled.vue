@@ -75,7 +75,7 @@ export default {
       router.push({
         name: 'dogodek',
         params: {
-          dogodekId: dogodek[0]
+          dogodekId: dogodek.id_dogodka
         }
       })
     },

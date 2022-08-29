@@ -56,8 +56,12 @@ export default {
         console.log("dodajanje")
         ApiKlici.postDogodek(this.currentUserName, this.form).then(
             (response) => {
-              alert(response)
+              if(response.status == 200) {
+                alert("Dogodek dodan")
               router.push('/dogodki')
+              }
+              alert("Nekaj ni bilo v redu")
+
 
             },
             (error) => {

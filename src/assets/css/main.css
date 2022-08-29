@@ -60,4 +60,6 @@ p {
     width: 50%;
     text-align: center;
 }
-
+.dodajIgroForm {
+    padding: 10px;
+}
