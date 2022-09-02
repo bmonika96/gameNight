@@ -9,7 +9,9 @@
             <form class="form-group">
               <input v-model="form.ime_skupine" class="form-control" placeholder="Ime skupine" required>
               <input v-model="form.datum" class="form-control" placeholder="Datum" required>
-              <input v-model="form.odigrana_igra" class="form-control" placeholder="Odigrana igra" required>
+              <select v-model="form.odigrana_igra" class="form-select form-control" aria-label="Default select example">
+                <option v-for="igra in this.igre" :key="igra.id" :value=igra.ime_igre>{{igra.ime_igre}}</option>
+              </select>
               <input v-model="form.zmagovalec" class="form-control" placeholder="Zmagovalec" required>
             </form>
             <button class="btn btn-primary" @click="dodajDogodek">DODAJ</button>
@@ -30,6 +32,7 @@ export default {
   name: 'DodajIgro',
   data() {
     return {
+      igre:[], 
       form: {
       ime_skupine: "",
       datum: "",
@@ -49,6 +52,20 @@ export default {
     if (!this.currentUser) {
       this.router.push('/login');
     }
+     ApiKlici.getIgre(this.currentUserName).then(
+        (response) => {
+        this.igre = JSON.parse(response.data)
+          console.log(this.igre)
+        },
+        (error) => {
+          this.content =
+              (error.response &&
+                  error.response.data &&
+                  error.response.data.message) ||
+              error.message ||
+              error.toString();
+        }
+    );
   },
   methods: {
     dodajDogodek(e){
