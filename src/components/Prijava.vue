@@ -8,14 +8,14 @@
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
             <div class="card login" v-bind:class="{ error: emptyFields }">
-              <h1>Sign In</h1>
+              <h1>Prijava</h1>
               <form class="form-group">
                 <input v-model="usernamelogin"  class="form-control" placeholder="Uporabniško ime" required>
                 <input v-model="passwordLogin" type="password" class="form-control" placeholder="Geslo" required>
                 <input type="submit" class="btn btn-primary" @click="handleLogin">
-                <p>Don't have an account? <a href="#" @click="registerRedirect">Sign up here</a>
+                <p>Še niste registrirani? <a href="#" @click="registerRedirect">Registracija</a>
                 </p>
-                <p><a href="#">Forgot your password?</a></p>
+
               </form>
             </div>
 

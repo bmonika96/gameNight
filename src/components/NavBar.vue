@@ -18,12 +18,6 @@
               <a class="nav-link" href="#" @click="routePushPredlagalnik">Predlagalnik igre</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" @click="routePushReg">Registracija</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" @click="routePushLogin">Login</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="#" @click="odjava">Odjava</a>
             </li>
           </ul>
