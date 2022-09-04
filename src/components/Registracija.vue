@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-  <div class="card login" v-bind:class="{ error: emptyFields }">
+  <div class="card login">
     <h1>Registration</h1>
     <form class="form-group">
       <input v-model="userName" class="form-control" placeholder="Uporabniško ime" required>
@@ -46,9 +46,12 @@ export default {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
   },
   mounted() {
-    if (this.loggedIn) {
+    if (this.loggedIn && this.currentUser) {
       router.push("/");
     }
   },
@@ -66,20 +69,18 @@ export default {
       console.log(user);
       this.$store.dispatch("auth/register", user).then(
           (data) => {
-            this.message = data.message;
+            console.log(data);
+            if(data == null){
+              alert("Uporabniško ime je zasedeno")
+              return
+            }
             this.successful = true;
             router.push('/login')
 
           },
           (error) => {
-            this.message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
-            this.successful = false;
-            this.loading = false;
+            console.log(error)
+            alert("Uporabniško ime je zasedeno")
           }
       );
     },

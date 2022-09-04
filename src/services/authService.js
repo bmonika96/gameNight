@@ -11,16 +11,19 @@ class AuthService {
             username: username, password: password
             }},)
             .then(response => {
-                console.log(response)
-
+                console.log(response);
+                    
                     localStorage.setItem('user', JSON.stringify(response.data));
+                    if(response.data){
                     localStorage.setItem('userData', JSON.stringify({
                         username: username, password: password
-                    }));
+
+                    })
+                    );}
 
                 return response.data;
-            });
-    }
+            
+    }).catch(e => {console.log(e);} )}
     logout() {
         console.log("odjavljanje")
         localStorage.removeItem('user')

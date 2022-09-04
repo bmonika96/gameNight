@@ -46,9 +46,13 @@ export default {
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     },
+    currentUser() {
+      return this.$store.state.auth.user;
+    }
   },
   created() {
-    if (this.loggedIn) {
+    if (this.loggedIn && this.currentUser) {
+      console.log("pushed")
       router.push("/");
     }
   },
@@ -60,7 +64,10 @@ export default {
         }
       },
     handleLogin(e) {
-      e.preventDefault();
+      e.preventDefault()
+      if(this.usernamelogin == ""||this.passwordLogin == "") {
+        return alert("Izpolnite polje za prijavo");
+      }
       console.log("login")
       const user = {
         'username' : this.usernamelogin,
@@ -70,27 +77,19 @@ export default {
 
       this.$store.dispatch("auth/login", user).then(
           () => {
+           
+
             console.log("successful")
-            router.push("/");
-          },
-          (error) => {
-            this.loading = false;
-            this.message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
-          }
-
-
-      );
-
-
-    },
-  },
-
-}
+            router.push({
+             name: 'domov'
+            })
+  
+    }).catch((e)=>{
+      console.log(e)
+      alert("napačni podatki");
+    })
+    }
+}}
 </script>
 <style>
 .login {
