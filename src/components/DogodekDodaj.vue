@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
           <div class="card">
-            <h1>Dodaj igro</h1>
+            <h1>Dodaj dogodek</h1>
             <form class="form-group">
               <input v-model="form.ime_skupine" class="form-control" placeholder="Ime skupine" required>
               <input v-model="form.datum" class="form-control" placeholder="Datum" required>
@@ -77,9 +77,9 @@ export default {
                 alert("Dogodek dodan")
               router.push('/dogodki')
               }
-              alert("Nekaj ni bilo v redu")
-
-
+              else{
+                 alert("Nekaj ni bilo v redu")
+              }
             },
             (error) => {
               console.log("error")

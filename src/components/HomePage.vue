@@ -26,9 +26,9 @@
                 <div class="card-body">
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-light"  @click="openGame(item)">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-light"  @click="openGame(item)">Poglej</button>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted">{{item.uporabnisko_ime}}</small>
                   </div>
                 </div>
               </div>
@@ -45,8 +45,7 @@
                   <p class="card-text">Zmagovalec: {{item.zmagovalec}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary" @click="openDogodek(item)">View</button>
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" @click="openDogodek(item)">Poglej</button>
                     </div>
                     <small class="text-muted">{{item.datum}}</small>
                   </div>
@@ -89,7 +88,6 @@ export default {
   mounted() {
     if (!this.currentUser) {
       router.push('/login');
-      console.log("pushed back")
     }
 
 
