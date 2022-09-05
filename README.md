@@ -2,23 +2,12 @@
 
 ## Project setup
 ```
+1.git clone into folder
+2. open folder
+3. ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+4. 
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
